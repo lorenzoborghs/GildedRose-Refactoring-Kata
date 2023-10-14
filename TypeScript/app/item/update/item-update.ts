@@ -12,6 +12,9 @@ export function updateItem(item: Item) {
     case ItemType.PASS:
       updatePassItem(item);
       break;
+    case ItemType.CONJURED:
+      updateConjuredItem(item);
+      break;
     default:
       updateNormalItem(item);
   }
@@ -23,6 +26,9 @@ function getItemType(item: Item): ItemType {
   }
   if (item.name.startsWith('Aged')) {
     return ItemType.AGED;
+  }
+  if (item.name.startsWith('Conjured')) {
+    return ItemType.CONJURED;
   }
   if (item.name === 'Sulfuras, Hand of Ragnaros') {
     return ItemType.LEGENDARY;
@@ -70,4 +76,15 @@ function updatePassItem(item: Item) {
   }
 
   item.quality = Math.min(item.quality, 50);
+}
+
+function updateConjuredItem(item: Item) {
+  item.sellIn--;
+  item.quality -= 2;
+
+  if (item.sellIn < 0) {
+    item.quality -= 2;
+  }
+
+  item.quality = Math.max(item.quality, 0);
 }

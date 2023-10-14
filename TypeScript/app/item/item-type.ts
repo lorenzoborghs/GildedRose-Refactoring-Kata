@@ -3,4 +3,5 @@ export enum ItemType {
   AGED,
   LEGENDARY,
   PASS,
+  CONJURED,
 }
