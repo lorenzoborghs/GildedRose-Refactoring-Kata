@@ -1,6 +1,9 @@
 import { Item } from '../item';
 import { ItemType } from '../item-type';
 
+const MAX_QUALITY = 50;
+const MIN_QUALITY = 0;
+
 export function updateItem(item: Item) {
   switch (getItemType(item)) {
     case ItemType.AGED:
@@ -44,7 +47,7 @@ function updateNormalItem(item: Item) {
     item.quality--;
   }
 
-  item.quality = Math.max(item.quality, 0);
+  item.quality = Math.max(item.quality, MIN_QUALITY);
 }
 
 function updateAgedItem(item: Item) {
@@ -55,7 +58,7 @@ function updateAgedItem(item: Item) {
     item.quality++;
   }
 
-  item.quality = Math.min(item.quality, 50);
+  item.quality = Math.min(item.quality, MAX_QUALITY);
 }
 
 function updateLegendaryItem(item: Item) {
@@ -75,7 +78,7 @@ function updatePassItem(item: Item) {
     item.quality++;
   }
 
-  item.quality = Math.min(item.quality, 50);
+  item.quality = Math.min(item.quality, MAX_QUALITY);
 }
 
 function updateConjuredItem(item: Item) {
@@ -86,5 +89,5 @@ function updateConjuredItem(item: Item) {
     item.quality -= 2;
   }
 
-  item.quality = Math.max(item.quality, 0);
+  item.quality = Math.max(item.quality, MIN_QUALITY);
 }
