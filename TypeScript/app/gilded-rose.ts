@@ -1,4 +1,4 @@
-import { Item, ItemType } from './item';
+import { Item } from './item';
 import { updateItem } from './item/update';
 
 export class GildedRose {
