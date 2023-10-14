@@ -149,4 +149,36 @@ describe('Gilded Rose', () => {
       expect(items[0].quality).toBe(0);
     });
   });
+
+  describe('Conjured items', () => {
+    it('should be named correctly', () => {
+      const gildedRose = new GildedRose([new Item('Conjured doll', 10, 20)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].name).toBe('Conjured doll');
+    });
+
+    it('should decrease SellIn by one', () => {
+      const gildedRose = new GildedRose([new Item('Conjured doll', 10, 20)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].sellIn).toBe(9);
+    });
+
+    it('should decrease Quality by two', () => {
+      const gildedRose = new GildedRose([new Item('Conjured doll', 10, 20)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(18);
+    });
+
+    it('should decrease Quality twice as fast when SellIn has passed', () => {
+      const gildedRose = new GildedRose([new Item('Conjured doll', 0, 20)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(16);
+    });
+
+    it('should never have a negative Quality', () => {
+      const gildedRose = new GildedRose([new Item('Conjured doll', 10, 0)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).toBe(0);
+    });
+  });
 });
