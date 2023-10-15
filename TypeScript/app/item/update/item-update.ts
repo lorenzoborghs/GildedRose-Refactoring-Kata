@@ -1,25 +1,25 @@
-import { Item } from '../item';
-import { ItemType } from '../item-type';
+import {
+  Item,
+  ItemType,
+  NormalItem,
+  AgedItem,
+  LegendaryItem,
+  PassItem,
+  ConjuredItem,
+} from '..';
 
-const MAX_QUALITY = 50;
-const MIN_QUALITY = 0;
-
-export function updateItem(item: Item) {
+export function updateItem(item: Item): Item {
   switch (getItemType(item)) {
     case ItemType.AGED:
-      updateAgedItem(item);
-      break;
-    case ItemType.LEGENDARY:
-      updateLegendaryItem(item);
-      break;
+      return new AgedItem(item).update();
     case ItemType.PASS:
-      updatePassItem(item);
-      break;
+      return new PassItem(item).update();
+    case ItemType.LEGENDARY:
+      return new LegendaryItem(item).update();
     case ItemType.CONJURED:
-      updateConjuredItem(item);
-      break;
+      return new ConjuredItem(item).update();
     default:
-      updateNormalItem(item);
+      return new NormalItem(item).update();
   }
 }
 
@@ -37,57 +37,4 @@ function getItemType(item: Item): ItemType {
     return ItemType.LEGENDARY;
   }
   return ItemType.NORMAL;
-}
-
-function updateNormalItem(item: Item) {
-  item.sellIn--;
-  item.quality--;
-
-  if (item.sellIn < 0) {
-    item.quality--;
-  }
-
-  item.quality = Math.max(item.quality, MIN_QUALITY);
-}
-
-function updateAgedItem(item: Item) {
-  item.sellIn--;
-  item.quality++;
-
-  if (item.sellIn < 0) {
-    item.quality++;
-  }
-
-  item.quality = Math.min(item.quality, MAX_QUALITY);
-}
-
-function updateLegendaryItem(item: Item) {
-  // Nothing should happen for now.
-}
-
-function updatePassItem(item: Item) {
-  item.sellIn--;
-
-  if (item.sellIn < 0) {
-    item.quality = 0;
-  } else if (item.sellIn < 6) {
-    item.quality += 3;
-  } else if (item.sellIn < 11) {
-    item.quality += 2;
-  } else {
-    item.quality++;
-  }
-
-  item.quality = Math.min(item.quality, MAX_QUALITY);
-}
-
-function updateConjuredItem(item: Item) {
-  item.sellIn--;
-  item.quality -= 2;
-
-  if (item.sellIn < 0) {
-    item.quality -= 2;
-  }
-
-  item.quality = Math.max(item.quality, MIN_QUALITY);
 }

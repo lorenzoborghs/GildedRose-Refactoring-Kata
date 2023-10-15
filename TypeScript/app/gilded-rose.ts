@@ -1,4 +1,5 @@
 import { Item } from './item';
+import { NormalItem } from './item/normal-item';
 import { updateItem } from './item/update';
 
 export class GildedRose {
@@ -9,9 +10,7 @@ export class GildedRose {
   }
 
   updateQuality() {
-    this.items.forEach((item) => {
-      updateItem(item);
-    });
+    this.items.forEach(updateItem);
     return this.items;
   }
 }
