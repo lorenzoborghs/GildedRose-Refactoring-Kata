@@ -37,6 +37,6 @@ export abstract class StockItem extends Item {
   }
 
   isCloserThanSellInDays(days: number): boolean {
-    return this.item.sellIn < days;
+    return this.item.sellIn < days - 1;
   }
 }
