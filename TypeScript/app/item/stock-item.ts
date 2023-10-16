@@ -31,4 +31,12 @@ export abstract class StockItem extends Item {
     this.item.quality = Math.max(this.item.quality, this.MIN_QUALITY);
     this.item.quality = Math.min(this.item.quality, this.MAX_QUALITY);
   }
+
+  isSellInPassed(): boolean {
+    return this.item.sellIn < 0;
+  }
+
+  isCloserThanSellInDays(days: number): boolean {
+    return this.item.sellIn < days;
+  }
 }

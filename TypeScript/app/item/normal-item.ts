@@ -4,7 +4,7 @@ export class NormalItem extends StockItem {
   update() {
     this.decreaseSellIn();
     this.decreaseQuality(
-      this.item.sellIn < 0
+      this.isSellInPassed()
         ? this.DEFAULT_DECREASE_AMOUNT * 2
         : this.DEFAULT_DECREASE_AMOUNT
     );

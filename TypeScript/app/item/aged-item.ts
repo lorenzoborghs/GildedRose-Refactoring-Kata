@@ -5,7 +5,7 @@ export class AgedItem extends StockItem {
   update(): Item {
     this.decreaseSellIn();
     this.increaseQuality(
-      this.item.sellIn < 0
+      this.isSellInPassed()
         ? this.DEFAULT_INCREASE_AMOUNT * 2
         : this.DEFAULT_INCREASE_AMOUNT
     );

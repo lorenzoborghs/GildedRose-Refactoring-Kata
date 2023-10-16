@@ -5,7 +5,7 @@ export class ConjuredItem extends StockItem {
   update(): Item {
     this.decreaseSellIn();
     this.decreaseQuality(
-      this.item.sellIn < 0
+      this.isSellInPassed()
         ? this.DEFAULT_DECREASE_AMOUNT * 4
         : this.DEFAULT_DECREASE_AMOUNT * 2
     );
